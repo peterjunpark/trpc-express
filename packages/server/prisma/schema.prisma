@@ -10,18 +10,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
-}
+model Yap {
+  id        String   @id @default(cuid())
+  content   String   @db.VarChar(255)
+  yuser     String
+  createdAt DateTime @default(now())
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+  @@index([yuser])
 }
